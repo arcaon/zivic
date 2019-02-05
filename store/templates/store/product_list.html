@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% load staticfiles %}
+{% block content %}
+        <div class="container">
+            <div class="row">
+            {% for product in products %}
+            {% load static %}
+            {% static "" as baseUrl %}
+                <div class="col-md-3" >
+                    <div class="thumbnail" style="height: 450px">
+                        <a href="{% url 'product-detail' product.pk %}">
+                        <img src="{{ product.image.url }}" width="200" height="300">
+                        <div class="caption text-center">{{ product.name }} {{ product.manufacturer }}</div>
+                        </a>
+                        <div class="caption text-center">
+                            <h4>{{ product.price }} UAH</h4>
+                            <form action="{% url 'product-delete' product.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h2>There is no products!</h2>
+                <h2><a href="{% url 'product-add' %}">Add product</a></h2>
+            {% endfor %}
+            </div>
+        </div>
+{% endblock %}

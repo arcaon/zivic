@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
+    <head lang="en">
+        {% load staticfiles %}
+        {% block scripts %}
+        {% endblock %}
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+        <meta charset="UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{%  static 'js/jquery-3.2.1.js' %}"></script>
+        <script type="text/javascript" src="{%  static 'js/bootstrap.js' %}"></script>
+        <script type="text/javascript" src="{%  static 'js/main.js' %}"></script>
+
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.css' %}">
+    </head>
+    <body>
+        <header class="text-center">
+            <h2 class="brand">Welcome to Zivic!</h2>
+        </header>
+        <nav class="navbar navbar-inverse" id="nav">
+            <div class="container-fluid " id="nav_cont">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li><h4><a href="/logout">Logout</a></h4></li>
+                    {% else %}
+                        <li><a href="{% url 'products-list' 'Products' %}">Products</a></li>
+                        <li><a href="{% url 'products-list' 'Victorinox' %}">Victorinox</a></li>
+                        <li><a href="{% url 'products-list' 'Zippo' %}">Zippo</a></li>
+                        <li><a href="/signup">Sign Up</a></li>
+                        <li><a href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container text-center" id="cont">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer class="footer navbar-fixed-bottom" style="background-color: #ffff00">
+            <div class="container" class="text-center" style="color: black">
+               <span>&copy; 2018 Zivic</span>
+            </div>
+        </footer>
+    </body>
+</html>

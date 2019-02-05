@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+{% else %}
+    <h2>Buy product</h2>
+    <hr>
+        <div class="row">
+            <div class="col-sm-5" style="width: 50%">
+                <form class="form-horizontal" method="post">{% csrf_token %}
+                <fieldset>
+                    {% for field in form %}
+                        <div class="control-group">
+                            <label class="control-label">{{ field.label }}</label>
+                            <div class="controls">{{ field }}
+                                {% if field.help_text %}
+                                    <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" >Submit</button>
+                </div>
+            </form>
+            </div>
+            <div class="col-sm-3">
+                <div class="thumbnail">
+                    <img src="{{ prod_image.url }}" alt="" width="200" height="300">
+                    <div class="caption text-center">
+                        <h4>{{ prod_manufacturer }} {{ prod_name }} </h4>
+                        <h2>{{ prod_price }} UAH</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endif %}
+{% endblock %}
